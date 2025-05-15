@@ -1,0 +1,10 @@
+name = "lustre_theme_switch"
+version = "1.0.0"
+target = "javascript"
+
+[dependencies]
+gleam_stdlib = "0.59.0"
+lustre = ">= 4.6.4 and < 5.0.0"
+
+[dev-dependencies]
+lustre_dev_tools = ">= 1.6.5 and < 2.0.0"

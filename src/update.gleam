@@ -14,5 +14,6 @@ pub fn update(model: Model, msg: Msg) -> #(Model, effect.Effect(Msg)) {
 
       #(Model(theme: next_theme), effect)
     }
+    types.PreviousThemeFetched(theme) -> #(Model(theme:), effect.none())
   }
 }

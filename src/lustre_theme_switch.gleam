@@ -1,4 +1,4 @@
-import effects.{set_theme}
+import effects.{previous_theme}
 import lustre
 import lustre/effect
 import types.{type Model, type Msg, init_model}
@@ -11,5 +11,5 @@ pub fn main() {
 }
 
 fn init(_) -> #(Model, effect.Effect(Msg)) {
-  #(init_model(), set_theme(types.Dark))
+  #(init_model(), previous_theme())
 }

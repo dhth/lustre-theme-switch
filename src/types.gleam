@@ -29,5 +29,6 @@ pub fn init_model() -> Model {
 }
 
 pub type Msg {
+  PreviousThemeFetched(Theme)
   UserRequestedThemeChange
 }

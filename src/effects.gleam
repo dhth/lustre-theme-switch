@@ -2,28 +2,26 @@ import lustre/effect
 import types.{type Msg, type Theme, theme_to_string}
 
 pub fn set_theme(theme: Theme) -> effect.Effect(Msg) {
-  fn(_) { theme |> theme_to_string |> set_theme_in_local_storage }
-  |> effect.from
+  use _ <- effect.from
+  theme |> theme_to_string |> set_theme_in_local_storage
 }
 
 pub fn remove_theme() -> effect.Effect(Msg) {
-  fn(_) { remove_theme_from_local_storage() }
-  |> effect.from
+  use _ <- effect.from
+  remove_theme_from_local_storage()
 }
 
 pub fn previous_theme() -> effect.Effect(Msg) {
-  fn(dispatch) {
-    let previous_theme_str = get_and_apply_previous_theme()
+  use dispatch <- effect.from
+  let previous_theme_str = get_and_apply_previous_theme()
 
-    let previous_theme = case previous_theme_str {
-      "dark" -> types.Dark
-      "light" -> types.Light
-      _ -> types.Auto
-    }
-
-    previous_theme |> types.PreviousThemeFetched |> dispatch
+  let previous_theme = case previous_theme_str {
+    "dark" -> types.Dark
+    "light" -> types.Light
+    _ -> types.Auto
   }
-  |> effect.from
+
+  previous_theme |> types.PreviousThemeFetched |> dispatch
 }
 
 @external(javascript, "./ffi/theme_ffi.mjs", "setManualTheme")

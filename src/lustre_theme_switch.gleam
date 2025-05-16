@@ -1,4 +1,4 @@
-import effects.{previous_theme}
+import effects.{apply_previous_theme, start_system_theme_tracking}
 import lustre
 import lustre/effect
 import types.{type Model, type Msg, init_model}
@@ -11,5 +11,8 @@ pub fn main() {
 }
 
 fn init(_) -> #(Model, effect.Effect(Msg)) {
-  #(init_model(), previous_theme())
+  #(
+    init_model(),
+    effect.batch([apply_previous_theme(), start_system_theme_tracking()]),
+  )
 }

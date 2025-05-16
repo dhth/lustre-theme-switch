@@ -1,3 +1,4 @@
+import gleam/option
 import lustre/attribute
 import lustre/element
 import lustre/element/html
@@ -17,8 +18,21 @@ pub fn view(model: Model) -> element.Element(Msg) {
           html.div(
             [attribute.class("flex flex-col gap-8 items-center my-auto p-12")],
             [
-              html.p([attribute.class("text-9xl")], [
-                model.theme |> theme_to_string |> element.text,
+              html.div([attribute.class("flex gap-2 items-baseline")], [
+                html.p([attribute.class("text-9xl")], [
+                  model.theme |> theme_to_string |> element.text,
+                ]),
+                case model.theme {
+                  types.Auto(option.Some(system_theme_dark)) ->
+                    html.p([attribute.class("text-xl")], [
+                      case system_theme_dark {
+                        False -> "(light)"
+                        True -> "(dark)"
+                      }
+                      |> element.text,
+                    ])
+                  _ -> element.none()
+                },
               ]),
               html.p([], ["click anywhere" |> element.text]),
               html.p(

@@ -1,3 +1,6 @@
+const dark = "dark";
+const light = "light";
+
 export function setManualTheme(theme) {
 	localStorage.theme = theme;
 	document.documentElement.setAttribute(
@@ -11,56 +14,70 @@ export function setManualTheme(theme) {
 export function setAutoTheme() {
 	localStorage.removeItem("theme");
 
+    let is_system_theme_dark;
+
 	if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-		document.documentElement.setAttribute(
-			"data-theme", "dark"
-		);
-		setFavicon("dark");
+        setTheme(dark);
+        is_system_theme_dark = true;
 	} else {
-		document.documentElement.setAttribute(
-			"data-theme", "light"
-		);
-		setFavicon("light");
+        setTheme(light);
+        is_system_theme_dark = false;
 	}
 
 	setTitle("auto");
+
+    return is_system_theme_dark;
 }
 
 export function getAndApplyPreviousTheme() {
 	if (("theme" in localStorage)) {
-		if (localStorage.theme == "dark") {
-			document.documentElement.setAttribute(
-				"data-theme", "dark"
-			);
-			setFavicon("dark");
-			setTitle("dark");
-			return "dark";
-		} else if (localStorage.theme == "light") {
-			document.documentElement.setAttribute(
-				"data-theme", "light"
-			);
-			setTitle("light");
-			setFavicon("light");
-			return "light";
+		if (localStorage.theme == dark) {
+            setTheme(dark);
+			setTitle(dark);
+			return dark;
+		} else if (localStorage.theme == light) {
+            setTheme(light);
+			setFavicon(light);
+			return light;
 		} else {
 			localStorage.removeItem("theme");
 		}
 	}
 
+    let systemTheme;
 	if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-		document.documentElement.setAttribute(
-			"data-theme", "dark"
-		);
-		setFavicon("dark");
+        setTheme(dark);
+        systemTheme = dark;
 	} else {
-		document.documentElement.setAttribute(
-			"data-theme", "light"
-		);
-		setFavicon("light");
+        setTheme(light);
+        systemTheme = light;
 	}
 
 	setTitle("auto");
-	return "auto";
+    return `auto-${systemTheme}`;
+}
+
+export function trackSystemTheme(cb) {
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (event) => {
+        if (!("theme" in localStorage)) {
+            if (event.matches) {
+                setTheme(dark);
+            } else {
+                setTheme(light);
+            }
+            setTitle("auto");
+            cb(event.matches);
+        }
+      });
+}
+
+function setTheme(theme) {
+    document.documentElement.setAttribute(
+        "data-theme", theme
+    );
+    setFavicon(theme);
 }
 
 function setFavicon(theme) {
@@ -70,6 +87,6 @@ function setFavicon(theme) {
 	}
 }
 
-function setTitle(theme) {
-	document.title = `${theme} | lustre-theme-switch`;
+function setTitle(prefix) {
+	document.title = `${prefix} | lustre-theme-switch`;
 }

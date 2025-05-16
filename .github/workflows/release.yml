@@ -1,16 +1,15 @@
-name: deploy
+name: release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 env:
   GLEAM_VERSION: '1.10.0'
 
 jobs:
   deploy:
-    name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     permissions:
       contents: read

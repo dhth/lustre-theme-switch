@@ -1,0 +1,29 @@
+name: lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+env:
+  GLEAM_VERSION: '1.10.0'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Set up Gleam
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: "27.0"
+          gleam-version: ${{ env.GLEAM_VERSION }}
+          rebar3-version: "3"
+      - name: Install dependencies
+        run: gleam deps download
+      - name: Gleam check
+        run: gleam check
+      - name: Gleam check formatting
+        run: gleam format --check

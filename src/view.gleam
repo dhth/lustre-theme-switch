@@ -8,7 +8,9 @@ import types.{type Model, type Msg, theme_to_string}
 pub fn view(model: Model) -> element.Element(Msg) {
   html.div(
     [
-      attribute.class("dark:bg-slate-800 dark:text-slate-100 text-slate-800"),
+      attribute.class(
+        "dark:bg-slate-800 dark:text-slate-100 text-slate-800 select-none",
+      ),
       event.on_click(types.UserRequestedThemeChange),
     ],
     [
@@ -18,7 +20,7 @@ pub fn view(model: Model) -> element.Element(Msg) {
           html.div(
             [attribute.class("flex flex-col gap-8 items-center my-auto p-12")],
             [
-              html.div([attribute.class("flex gap-2 items-baseline")], [
+              html.div([attribute.class("flex flex-col gap-2 items-center")], [
                 html.p([attribute.class("text-9xl")], [
                   model.theme |> theme_to_string |> element.text,
                 ]),
@@ -31,7 +33,10 @@ pub fn view(model: Model) -> element.Element(Msg) {
                       }
                       |> element.text,
                     ])
-                  _ -> element.none()
+                  _ ->
+                    html.p([attribute.class("text-xl invisible")], [
+                      "hidden" |> element.text,
+                    ])
                 },
               ]),
               html.p([], ["click anywhere" |> element.text]),

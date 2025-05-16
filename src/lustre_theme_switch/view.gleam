@@ -3,7 +3,7 @@ import lustre/attribute
 import lustre/element
 import lustre/element/html
 import lustre/event
-import types.{type Model, type Msg, theme_to_string}
+import lustre_theme_switch/types.{type Model, type Msg, theme_to_string}
 
 pub fn view(model: Model) -> element.Element(Msg) {
   html.div(

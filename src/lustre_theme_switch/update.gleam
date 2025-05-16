@@ -1,7 +1,7 @@
-import effects.{set_auto_theme, set_manual_theme}
 import gleam/option
 import lustre/effect
-import types.{type Model, type Msg, Model, next_theme}
+import lustre_theme_switch/effects.{set_auto_theme, set_manual_theme}
+import lustre_theme_switch/types.{type Model, type Msg, Model, next_theme}
 
 pub fn update(model: Model, msg: Msg) -> #(Model, effect.Effect(Msg)) {
   let zero = #(model, effect.none())

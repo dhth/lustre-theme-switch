@@ -1,6 +1,6 @@
 import gleam/option
 import lustre/effect
-import types.{type Msg, type Theme, theme_to_string}
+import lustre_theme_switch/types.{type Msg, type Theme, theme_to_string}
 
 pub fn set_manual_theme(theme: Theme) -> effect.Effect(Msg) {
   use _ <- effect.from

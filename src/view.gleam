@@ -7,7 +7,7 @@ import types.{type Model, type Msg, theme_to_string}
 pub fn view(model: Model) -> element.Element(Msg) {
   html.div(
     [
-      attribute.class("dark:bg-slate-600 dark:text-slate-100 text-slate-800"),
+      attribute.class("dark:bg-slate-800 dark:text-slate-100 text-slate-800"),
       event.on_click(types.UserRequestedThemeChange),
     ],
     [
@@ -20,13 +20,40 @@ pub fn view(model: Model) -> element.Element(Msg) {
               html.p([attribute.class("text-9xl")], [
                 model.theme |> theme_to_string |> element.text,
               ]),
-              html.p([attribute.class("text-sm")], [
-                "click anywhere" |> element.text,
-              ]),
-              html.p([attribute.class("text-xs")], [
-                "your selection will be remembered the next time this page loads"
-                |> element.text,
-              ]),
+              html.p([], ["click anywhere" |> element.text]),
+              html.p(
+                [attribute.class("text-sm dark:text-slate-200 text-slate-600")],
+                [
+                  "this is a demonstration of how you can handle color themes in "
+                    |> element.text,
+                  html.a(
+                    [
+                      attribute.class(
+                        "font-semibold border-b-2 dark:border-slate-100 border-slate-800",
+                      ),
+                      attribute.href("https://github.com/lustre-labs/lustre"),
+                      attribute.target("_blank"),
+                    ],
+                    ["lustre" |> element.text],
+                  ),
+                  " apps" |> element.text,
+                ],
+              ),
+              html.p(
+                [attribute.class("text-xs dark:text-slate-300 text-slate-800")],
+                [
+                  "your selection will be remembered the next time this page loads"
+                  |> element.text,
+                ],
+              ),
+              html.a(
+                [
+                  attribute.class("font-mono text-xs"),
+                  attribute.href("https://github.com/dhth/lustre-theme-switch"),
+                  attribute.target("_blank"),
+                ],
+                ["repo" |> element.text],
+              ),
             ],
           ),
         ],

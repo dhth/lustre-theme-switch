@@ -37,7 +37,7 @@ export function getAndApplyPreviousTheme() {
 			return dark;
 		} else if (localStorage.theme == light) {
             setTheme(light);
-			setFavicon(light);
+			setTitle(light);
 			return light;
 		} else {
 			localStorage.removeItem("theme");
@@ -61,7 +61,7 @@ export function trackSystemTheme(cb) {
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", (event) => {
-        if (!("theme" in localStorage)) {
+        if (!("theme" in localStorage)) { // this ensures we only change the theme when "auto" mode is ON
             if (event.matches) {
                 setTheme(dark);
             } else {

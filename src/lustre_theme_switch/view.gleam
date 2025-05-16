@@ -58,13 +58,30 @@ pub fn view(model: Model) -> element.Element(Msg) {
                   " apps" |> element.text,
                 ],
               ),
-              html.p(
-                [attribute.class("text-xs dark:text-slate-300 text-slate-800")],
-                [
-                  "your selection will be remembered the next time this page loads"
-                  |> element.text,
-                ],
-              ),
+              html.div([attribute.class("flex flex-col gap-2 items-center")], [
+                html.p(
+                  [
+                    attribute.class(
+                      "text-xs dark:text-slate-300 text-slate-800",
+                    ),
+                  ],
+                  [
+                    "notice the change in the tab's title and favicon"
+                    |> element.text,
+                  ],
+                ),
+                html.p(
+                  [
+                    attribute.class(
+                      "text-xs dark:text-slate-300 text-slate-800",
+                    ),
+                  ],
+                  [
+                    "your selection will be remembered the next time this page loads"
+                    |> element.text,
+                  ],
+                ),
+              ]),
               html.a(
                 [
                   attribute.class("font-mono text-xs"),

@@ -34,5 +34,4 @@ pub type Msg {
   PreviousThemeFetched(Theme)
   UserRequestedThemeChange
   SystemThemeFetched(Bool)
-  SystemThemeChanged(Bool)
 }

@@ -24,7 +24,7 @@ pub fn view(model: Model) -> element.Element(Msg) {
               html.p(
                 [attribute.class("text-sm dark:text-slate-200 text-slate-600")],
                 [
-                  "this is a demonstration of how you can handle color themes in "
+                  "this is a demonstration of how you can switch themes in "
                     |> element.text,
                   html.a(
                     [

@@ -30,17 +30,17 @@ pub fn apply_previous_theme() -> effect.Effect(Msg) {
 pub fn start_system_theme_tracking() {
   use dispatch <- effect.from()
   use is_dark <- track_system_theme_js
-  is_dark |> types.SystemThemeChanged |> dispatch
+  is_dark |> types.SystemThemeFetched |> dispatch
 }
 
-@external(javascript, "./ffi/theme_ffi.mjs", "setManualTheme")
+@external(javascript, "./ffi/theme.ffi.mjs", "setManualTheme")
 pub fn set_manual_theme_js(theme: string) -> Nil
 
-@external(javascript, "./ffi/theme_ffi.mjs", "setAutoTheme")
+@external(javascript, "./ffi/theme.ffi.mjs", "setAutoTheme")
 pub fn set_auto_theme_js() -> Bool
 
-@external(javascript, "./ffi/theme_ffi.mjs", "getAndApplyPreviousTheme")
+@external(javascript, "./ffi/theme.ffi.mjs", "getAndApplyPreviousTheme")
 pub fn get_and_apply_previous_theme_js() -> String
 
-@external(javascript, "./ffi/theme_ffi.mjs", "trackSystemTheme")
+@external(javascript, "./ffi/theme.ffi.mjs", "trackSystemTheme")
 fn track_system_theme_js(cb: fn(Bool) -> Nil) -> Nil

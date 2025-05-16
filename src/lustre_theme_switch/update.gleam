@@ -17,7 +17,7 @@ pub fn update(model: Model, msg: Msg) -> #(Model, effect.Effect(Msg)) {
       #(Model(theme: next_theme), effect)
     }
     types.PreviousThemeFetched(theme) -> #(Model(theme:), effect.none())
-    types.SystemThemeFetched(is_dark) | types.SystemThemeChanged(is_dark) ->
+    types.SystemThemeFetched(is_dark) ->
       case model.theme {
         types.Auto(_) -> #(
           Model(theme: types.Auto(dark: is_dark |> option.Some)),
